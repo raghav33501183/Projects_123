@@ -1,0 +1,362 @@
+<%- include("header") -%>
+
+  <div class="search">
+        <form class="container-fluid" action="/options" method="post">
+          <input type="hidden" name="login" value="<%= vary %>">
+          <input class="inp1" type="text" name="event" value="" placeholder="EVENT">
+          <input class="inp2" type="text" name="place" value="" placeholder="PLACE">
+          <input type="hidden" name="venuetype" value="xxx">
+          <button class="btn btn-info" id="btttn" type="submit" name="button">Search</button>
+        </form>
+  </div>
+
+    </div>
+
+  </section>
+
+  <div class="">
+
+  </div>
+
+  <h2>How to go about!!!</h2>
+
+  <div class="row" id="rowbar1">
+    <div class="pricing-column col-lg-3 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="item">
+            <img class="image-fluid" src="images/eventtypo1.png" width=50% height="100" alt="">
+            <h2><b>Browse Venues</b></h2>
+            <p><i>Browse for different types of venues all around Delhi NCR!</i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-column col-lg-3 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="item">
+            <img class="image-fluid" src="images/eventtypo2.png" width=50% height="100" alt="">
+            <h2><b>Book Venues</b></h2>
+            <p><i>You can book any suitable venue, depending on event!</i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-column col-lg-3 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="item">
+            <img class="image-fluid" src="images/eventtypo3.png" alt="" width=50% height="100" id="img">
+            <h2><b>Rate Venues</b></h2>
+            <p><i>Rating and Reviews for any venue are most welcome here!</i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="hdng" id="hotel"><--HOTELS--></p>
+
+  <div class="row" id="rowbar">
+    <% let count=0 %>
+    <% for (let i=0; i<newListItems.length && count<4; i++) { %>
+      <% if(newListItems[i].Venue_Type.toLowerCase().includes("hotel")) { %>
+      <% count++; %>
+      <div class="pricing-column col-lg-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="item">
+              <% if(vary == 'fff') { %>
+                <form action="/confirm" method="post">
+                  <input type="hidden" id="custId" name="custId" value="<%= newListItems[i]._id %>">
+                  <input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="image" width=100% height="240"  id="img"/>
+                </form>
+              <% } else { %>
+                <a href="login"><input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="saveForm"  width=100% height="240"  id="img"/></a>
+              <% } %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <h2><%= newListItems[i].City %></h2>
+            <p><%= newListItems[i].Event_Speciality %></p>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
+
+  <form class="" action="/options" method="post">
+    <input type="hidden" name="login" value="<%= vary %>">
+    <input type="hidden" name="place" value="yyy">
+    <input type="hidden" name="event" value="zzz">
+    <button class="btn btn-primary ftr" type="submit" name="venuetype" value="hotel">Show more...</button>
+  </form>
+
+
+  <p class="hdng" id="restaurant"><--RESTAURANTS--></p>
+
+  <div class="row" id="rowbar">
+    <% count=0 %>
+    <% for (let i=0; i<newListItems.length && count<4; i++) { %>
+      <% if(newListItems[i].Venue_Type.toLowerCase().includes("restaurant")) { %>
+      <% count++; %>
+      <div class="pricing-column col-lg-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="item">
+              <% if(vary == 'fff') { %>
+                <form action="/confirm" method="post">
+                  <input type="hidden" id="custId" name="custId" value="<%= newListItems[i]._id %>">
+                  <input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="image" width=100% height="240"  id="img"/>
+                </form>
+              <% } else { %>
+                <a href="login"><input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="saveForm"  width=100% height="240"  id="img"/></a>
+              <% } %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <h2><%= newListItems[i].City %></h2>
+            <p><%= newListItems[i].Event_Speciality %></p>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
+
+  <form class="" action="/options" method="post">
+    <input type="hidden" name="login" value="<%= vary %>">
+    <input type="hidden" name="place" value="yyy">
+    <input type="hidden" name="event" value="zzz">
+    <button class="btn btn-success ftr" type="submit" name="venuetype" value="restaurant">Show more...</button>
+  </form>
+
+  <div class="grey">
+    <h1 class="header"> Feedback:</h1>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="grey1">
+            <img class="profpic" src="images/eventrec1.jpg">
+            <p class="feedback">Every staff member I encountered, from the valet to the cleaning staff were delightful and eager to help!</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="grey1">
+            <img class="profpic" src="images/eventrec2.jpg">
+            <p class="feedback">I loved the place, location food atmosphere and most importantly the wonderful staff.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="hdng" id="resort"><--RESORTS--></p>
+
+  <div class="row" id="rowbar">
+    <% count=0 %>
+    <% for (let i=0; i<newListItems.length && count<4; i++) { %>
+      <% if(newListItems[i].Venue_Type.toLowerCase().includes("resort")) { %>
+      <% count++; %>
+      <div class="pricing-column col-lg-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="item">
+              <% if(vary == 'fff') { %>
+                <form action="/confirm" method="post">
+                  <input type="hidden" id="custId" name="custId" value="<%= newListItems[i]._id %>">
+                  <input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="image" width=100% height="240"  id="img"/>
+                </form>
+              <% } else { %>
+                <a href="login"><input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="saveForm"  width=100% height="240"  id="img"/></a>
+              <% } %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <h2><%= newListItems[i].City %></h2>
+            <p><%= newListItems[i].Event_Speciality %></p>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
+
+  <form class="" action="/options" method="post">
+    <input type="hidden" name="login" value="<%= vary %>">
+    <input type="hidden" name="place" value="yyy">
+    <input type="hidden" name="event" value="zzz">
+    <button class="btn btn-danger ftr" type="submit" name="venuetype" value="resort">Show more...</button>
+  </form>
+
+  <p class="hdng" id="partyhall"><--PARTY HALLS--></p>
+
+  <div class="row" id="rowbar">
+    <% count=0 %>
+    <% for (let i=0; i<newListItems.length && count<4; i++) { %>
+      <% if(newListItems[i].Venue_Type.toLowerCase().includes("party") && newListItems[i].Venue_Type.toLowerCase().includes("hall")) { %>
+      <% count++; %>
+      <div class="pricing-column col-lg-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="item">
+              <% if(vary == 'fff') { %>
+                <form action="/confirm" method="post">
+                  <input type="hidden" id="custId" name="custId" value="<%= newListItems[i]._id %>">
+                  <input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="image" width=100% height="240"  id="img"/>
+                </form>
+              <% } else { %>
+                <a href="login"><input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="saveForm"  width=100% height="240"  id="img"/></a>
+              <% } %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <h2><%= newListItems[i].City %></h2>
+            <p><%= newListItems[i].Event_Speciality %></p>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
+
+  <form class="" action="/options" method="post">
+    <input type="hidden" name="login" value="<%= vary %>">
+    <input type="hidden" name="place" value="yyy">
+    <input type="hidden" name="event" value="zzz">
+    <button class="btn btn-secondary ftr" type="submit" name="venuetype" value="party hall">Show more...</button>
+  </form>
+
+  <div class="grey">
+    <h1 class="header"> Feedback:</h1>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="grey1">
+            <img class="profpic" src="images/eventrec3.jpg">
+            <p class="feedback">What a amazing venue. Beautiful place for a Wedding. I truly hope we are invited to another function here.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="grey1">
+            <img class="profpic" src="images/eventrec4.jpg">
+            <p class="feedback">Got amazing party hall for my cousin's surprise birthday party..</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="hdng" id="weddinghall"><--WEDDING HALLS--></p>
+
+  <div class="row" id="rowbar">
+    <% count=0 %>
+    <% for (let i=0; i<newListItems.length && count<4; i++) { %>
+      <% if(newListItems[i].Venue_Type.toLowerCase().includes("wedding") && newListItems[i].Venue_Type.toLowerCase().includes("hall")) { %>
+      <% count++; %>
+      <div class="pricing-column col-lg-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="item">
+              <% if(vary == 'fff') { %>
+                <form action="/confirm" method="post">
+                  <input type="hidden" id="custId" name="custId" value="<%= newListItems[i]._id %>">
+                  <input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="image" width=100% height="240"  id="img"/>
+                </form>
+              <% } else { %>
+                <a href="login"><input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="saveForm"  width=100% height="240"  id="img"/></a>
+              <% } %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <h2><%= newListItems[i].City %></h2>
+            <p><%= newListItems[i].Event_Speciality %></p>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
+
+  <form class="" action="/options" method="post">
+    <input type="hidden" name="login" value="<%= vary %>">
+    <input type="hidden" name="place" value="yyy">
+    <input type="hidden" name="event" value="zzz">
+    <button class="btn btn-warning ftr" type="submit" name="venuetype" value="wedding">Show more...</button>
+  </form>
+
+  <p class="hdng" id="partylawn"><--PARTY LAWNS--></p>
+
+  <div class="row" id="rowbar">
+    <% count=0 %>
+    <% for (let i=0; i<newListItems.length && count<4; i++) { %>
+      <% if(newListItems[i].Venue_Type.toLowerCase().includes("party") && newListItems[i].Venue_Type.toLowerCase().includes("lawn")) { %>
+      <% count++; %>
+      <div class="pricing-column col-lg-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="item">
+              <% if(vary == 'fff') { %>
+                <form action="/confirm" method="post">
+                  <input type="hidden" id="custId" name="custId" value="<%= newListItems[i]._id %>">
+                  <input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="image" width=100% height="240"  id="img"/>
+                </form>
+              <% } else { %>
+                <a href="login"><input class="image-fluid" type="image" src="uploads/<%= newListItems[i].Image %>" alt="Submit" name="saveForm"  width=100% height="240"  id="img"/></a>
+              <% } %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <h2><%= newListItems[i].City %></h2>
+            <p><%= newListItems[i].Event_Speciality %></p>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
+
+  <form class="" action="/options" method="post">
+    <input type="hidden" name="login" value="<%= vary %>">
+    <input type="hidden" name="place" value="yyy">
+    <input type="hidden" name="event" value="zzz">
+    <button class="btn btn-info ftr" type="submit" name="venuetype" value="lawn">Show more...</button>
+  </form>
+
+  <div class="grey">
+    <h1 class="header"> Feedback:</h1>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="grey1">
+            <img class="profpic" src="images/eventrec5.jpg">
+            <p class="feedback">Perfect spot for your wedding or event. The location is intimate and warm. Gorgeous surroundings and sunset views</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="grey1">
+            <img class="profpic" src="images/eventrec6.jpg">
+            <p class="feedback">The weather was perfect for an outdoor wedding. No mosquitos or bugs. Short walk to everything yet nothing seemed crowded.!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="white-section">
+  <div class="picz">
+    <img class="press-logo2" id="one" src="images/eventfooter3.jpg" width=25% height="140px">
+    <img class="press-logo2" id="one" src="images/eventfooter2.jpg" width=25% height="140px">
+    <img class="press-logo2" id="one" src="images/eventfooter4.jpg" width=25% height="140px">
+    <img class="press-logo2" id="one" src="images/eventfooter6.jpg" width=25% height="140px">
+  </div>
+  <div class="picz2">
+    <img class="press-logo2" id="two" src="images/eventfooter5.jpg" width=25% height="140px">
+    <img class="press-logo2" id="two" src="images/eventfooter.jpg" width=25% height="140px">
+    <img class="press-logo2" id="two" src="images/eventfooter7.jpg" width=25% height="140px">
+  </div>
+</section>
+
+<%- include("footer") -%>

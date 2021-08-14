@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles6.css">
+    <title></title>
+  </head>
+  <body>
+    <img class="img" src="images/eventreviews.png" alt="">
+    <div class="reviews">
+      <% for (let i=0;i<newListItems.length;i++) { %>
+        <p>--> <%= newListItems[i].review %></p>
+      <% } %>
+    </div>
+  </body>
+</html>

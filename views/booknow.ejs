@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- Google Fonts -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles5.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title></title>
+  </head>
+  <body>
+    <div class="details">
+      <% if(vary == 'iii') { %>
+        <button class="btn btn-danger" type="button" name="button">Slot already booked, please choose another date!</button>
+      <!-- <p>Slot already booked, please choose another date!</p> -->
+      <% } else if(vary == 'jjj'){ %>
+      <button class="btn btn-success"type="button" name="button">Booking Confirmed!</button>
+      <!-- <p></p> -->
+      <% } %>
+      <h1 class="heading"><b><%= newListItems.Event_Organzation_Name %></b> {⭐⭐⭐⭐/<% if(newListItems.Rating) { %>
+        <%= Math.round(newListItems.Rating * 100) / 100 %>
+      <% } %> } </h1>
+
+      <p><i>Types of Events which can be held here: </i><b><%= newListItems.Event_Speciality %></b></p>
+      <img class="img" src="uploads/<%= newListItems.Image %>">
+      <a href="#bk"><button class="btn btn-info" name="button">Book Now!!</button></a>
+
+
+      <table>
+        <tr>
+          <td><p>Fare Per houR: </p></td>
+          <td><p><b><%= newListItems.Fare_Per_Hour %>/hr</b></p></td>
+        </tr>
+        <tr>
+          <td><p>Contact Us AT: </p></td>
+          <td><p><b><%= newListItems.Office_Phone_Number %></b></p></td>
+        </tr>
+        <tr>
+          <td><p>OFFice Mail ID: </p></td>
+          <td><p><b><%= newListItems.Office_Email_ID %></b></p></td>
+        </tr>
+        <tr>
+          <td><p>Venue Address: </p></td>
+          <td><p><b><%= newListItems.Venue %></b></p></td>
+        </tr>
+      </table>
+
+
+    </div>
+
+
+    <div class="rate">
+      <h2>Rate Now:</h2>
+      <form class="form" action="/rating" method="post">
+        <input class="rating" type="range" min="0" max="5" name="rating" value="" required>
+        <button class="btn btn-warning" type="submit" name="button" value="<%= newListItems._id %>">Rate!!</button>
+      </form>
+    </div>
+
+    <div class="review">
+      <h2>Add Reviews:</h2>
+      <form class="" action="/seereviews" method="post">
+        <button class="btn btn-link"type="submit" name="button" value="<%= newListItems._id %>">See Reviews</button>
+      </form>
+      <form class="form1" action="/reviews" method="post">
+        <textarea class="reviews" name="reviews" placeholder="Give your own reviews..." rows="8" cols="80" required></textarea>
+        <button class="btn btn-info" id="bttn" type="submit" name="button" value="<%= newListItems._id %>">Add Review!</button>
+      </form>
+    </div>
+
+    <div class="book container-fluid" id="bk">
+      <h2>Book Now!</h2>
+      <form class="form2" action="/book" method="post">
+        <table border-spacing="10">
+          <tr>
+            <td class="td"><label for="fname"><strong>Full Name:-</strong></label></td>
+            <td class="td"><input type="text" placeholder="Enter full-name" name="fname" required></td>
+          </tr>
+          <tr>
+            <td class="td"><label for="addr"><strong>Address:-</strong></label></td>
+            <td class="td"><input type="text" placeholder="Enter address" name="addr" required></td>
+          </tr>
+          <tr>
+            <td class="td"><label for="pnum"><strong>Phone Num:-</strong></label></td>
+            <td class="td"><input type="text" placeholder="Enter phone number" name="pnum" required></td>
+          </tr>
+          <tr>
+            <td class="td1"><label for="doe"><strong>Event Date:- </strong></label></td>
+            <td class="td1"><input type="date" placeholder="Select date of event" name="doe" required></td>
+          </tr>
+        </table>
+        <button class="btn btn-dark" type="submit" name="button" value="<%= newListItems._id %>">Book!!</button>
+    </form>
+    </div>
+
+
+
+
+
+    <footer class="white-section" id="footer">
+      <div class="container-fluid">
+        <a href="https://www.facebook.com/"><i class="social-icon fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/"><i class="social-icon fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/"><i class="social-icon fab fa-instagram"></i></a>
+        <a href="https://mail.google.com/"><i class="social-icon fas fa-envelope"></i></a>
+        <p>© Copyright 2021 PetCare</p>
+        <p>Contact No.: 9458123791/8218929532</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
