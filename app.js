@@ -34,7 +34,9 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-mongoose.connect("mongodb://localhost:27017/EventDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect("mongodb+srv://admin-raghav:Test123@cluster-xyz.uvfog.mongodb.net/EventDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+// mongodb+srv://admin-raghav:Test123@cluster-xyz.uvfog.mongodb.net/EventDB?retryWrites=true&w=majority
+// mongodb://localhost:27017/EventDB
 
 const reviewSchema = {
   review: String,
@@ -133,7 +135,7 @@ app.get("/signup", function(req, res) {
 app.get("/", function(req, res) {
   Item.find({}, function(err, foundItems){
     if(err) {
-      console.log(error);
+      console.log(err);
     }
     else {
       res.render("list", {newListItems: foundItems, vary: k});
