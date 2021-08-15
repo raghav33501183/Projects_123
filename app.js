@@ -3,15 +3,14 @@ require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const multer = require("multer");
 const ejs = require("ejs");
-const encrypt = require("mongoose-encryption");
 const path = require("path");
 const _ = require("lodash");
 
 const app = express();
-
-console.log(process.env.API_KEY);
 
 app.use(express.static("public"));
 
@@ -84,7 +83,6 @@ const userSchema = new mongoose.Schema({
 });
 
 
-userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] });
 
 const User = mongoose.model("User", userSchema);
 
@@ -161,63 +159,65 @@ app.post("/", upload, function(req, res) {
 });
 
 app.post("/user", function(req, res){
-
-  const uname = req.body.uname;
-  const user1 = new User({
-    username: req.body.uname,
-    password: req.body.psw,
-  });
-  User.findOne({username: uname}, function(error, exist) {
-    if(error) {
-      console.log(error);
-    } else {
-      if (exist) {
-        res.render("signup", {title: 'POST user', vary:'ccc'});
-      } else {
-        if(req.body.psw == req.body.repsw) {
-          user1.save();
-          res.redirect("/");
-        } else {
-          res.render("signup", {title: 'POST user', vary:'ddd'});
-        }
-      }
-    }
-  });
-});
-
-app.post("/signin", function(req, res) {
-
-      const uname = req.body.uname;
-      const psw = req.body.psw;
+  bcrypt.hash(req.body.psw, saltRounds, function(err, hash) {
+    const uname = req.body.uname;
+    const user1 = new User({
+      username: req.body.uname,
+      password: hash,
+    });
     User.findOne({username: uname}, function(error, exist) {
       if(error) {
         console.log(error);
       } else {
         if (exist) {
-          User.findOne({password: psw}, function(error, exist) {
-            if(error) {
-              console.log(error);
-            } else {
-              if(exist) {
-                Item.find({}, function(err, foundItems){
-                  if(err) {
-                    console.log(error);
-                  }
-                  else {
-                    res.render("list", {title: 'POST signin', newListItems: foundItems, vary: 'fff'});
-                  }
-                });
-              } else {
-                res.render("login", {title: 'POST signin', vary:'aaa'});
-              }
-            }
-          });
+          res.render("signup", {title: 'POST user', vary:'ccc'});
         } else {
+          if(req.body.psw == req.body.repsw) {
+            user1.save();
+            res.redirect("/");
+          } else {
+            res.render("signup", {title: 'POST user', vary:'ddd'});
+          }
+        }
+      }
+    });
+  });
+
+});
+
+
+app.post("/signin", function(req, res) {
+
+      const uname = req.body.uname;
+      const psw = req.body.psw;
+      User.findOne({username: uname}, function(error, foundItems) {
+      if(error) {
+        console.log(error);
+      } else {
+        if (foundItems) {
+          bcrypt.compare(req.body.psw, foundItems.password, function(err, result) {
+            if(result==true) {
+              Item.find({}, function(err, foundItems){
+                if(err) {
+                  console.log(error);
+                }
+                else {
+                  res.render("list", {title: 'POST signin', newListItems: foundItems, vary: 'fff'});
+                }
+              });
+            }
+            else {
+                  res.render("login", {title: 'POST signin', vary:'aaa'});
+                }
+              });
+          }
+        else {
           res.render("login", {title: 'POST signin', vary:'bbb'});
         }
       }
     });
 });
+
 
 app.post("/confirm", function(req, res){
   const buttonItemId = req.body.custId;
