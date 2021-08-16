@@ -84,8 +84,6 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
-
-
 const User = mongoose.model("User", userSchema);
 
 var k='1';
@@ -338,13 +336,8 @@ app.post("/rating", function(req, res){
       } else {
         Item.findByIdAndUpdate(buttonItemId, {Rating_Number: foundItems2.Rating_Number+1}, function(err, foundItems1){
           if(!err) {
-            // console.log(foundItems1.Rating_Number);
-            // console.log(foundItems1.Rating);
             Item.findByIdAndUpdate(buttonItemId, {Rating: ((foundItems1.Rating*(foundItems1.Rating_Number)+Number(rating))/(foundItems1.Rating_Number+1))}, function(err, foundItems){
               if(!err) {
-                // console.log(foundItems1.Rating_Number);
-                // console.log(foundItems1.Rating);
-                // console.log(foundItems.Rating);
                 res.render("booknow", {newListItems: foundItems, vary: k})
               }
             });
