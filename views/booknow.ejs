@@ -30,9 +30,14 @@
       <button class="btn btn-success"type="button" name="button">Booking Confirmed!</button>
       <!-- <p></p> -->
       <% } %>
-      <h1 class="heading"><b><%= newListItems.Event_Organzation_Name %></b> {⭐⭐⭐⭐/<% if(newListItems.Rating) { %>
-        <%= Math.round(newListItems.Rating * 10) / 10 %>
-      <% } %> } </h1>
+      <h1 class="heading"><b><%= newListItems.Event_Organzation_Name %></b><% if(newListItems.Rating) { %>
+        <% for(let i=0;i<Math.round(newListItems.Rating);++i) { %>
+          <div style="white-space: nowrap; margin: 0px; padding: 0; display: inline-block;">
+            <span>⭐</span>
+          </div>
+        <% } %>
+        (<%= Math.round(newListItems.Rating * 10) / 10 %>)
+      <% } %> </h1>
 
       <p><i>Types of Events which can be held here: </i><b><%= newListItems.Event_Speciality %></b></p>
       <img class="img" src="uploads/<%= newListItems.Image %>">
